@@ -2,16 +2,39 @@
     <script>
         let wordnikAPI;
         let giphyAPI = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=LOgOwhtwscVqlPeVRaiUTe0FXnl95rI4&limit=5";
-        //Example using callbacks
         function setup () {
             noCanvas();
-            loadJSON(wordnikAPI, function(data) {
-                createP(data.word);
-                loadJSON(giphyAPI + data.word, function(data) {
-                    console.log(data.data[0].images);
-                    createImg(data.data[0].images['fixed_height_small'].url)
-                });
-            });
+
+
+            //without function chaining
+            // let promise = fetch(giphyAPI); 
+            //then executes when a promise is fulfilled
+            // promise.then(gotData);
+            //catch executes when a promise is rejected
+            // promise.catch(gotErr);           
+
+            //OR -- with chaining
+            fetch(giphyAPI).then(gotData).catch(gotErr);
+
+
+            //assigning then function
+            function gotData(data) {
+                console.log(data);
+            }
+            //assigning catch function
+            function gotErr(err) {
+                console.log(err);
+            }
+
+
+            //Example using callbacks
+            // loadJSON(wordnikAPI, function(data) {
+            //     createP(data.word);
+            //     loadJSON(giphyAPI + data.word, function(data) {
+            //         console.log(data.data[0].images);
+            //         createImg(data.data[0].images['fixed_height_small'].url)
+            //     });
+            // });
         }
 
     </script>
