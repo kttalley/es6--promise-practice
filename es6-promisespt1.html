@@ -1,10 +1,47 @@
 <html>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
     <script>
         let wordnikAPI;
         let giphyAPI = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=LOgOwhtwscVqlPeVRaiUTe0FXnl95rI4&limit=5";
         function setup () {
             noCanvas();
 
+
+            //Instead: describe promise
+            //sequence and functionality
+            //with arrow functions
+            //promise is not assigned to a pointer, only fetched
+            fetch(giphyAPI)
+                .then(response => response.json())
+                .then(json => loadImage(json.data[0].images['fixed_height_small'].url))
+            
+            // fetch(wordnikAPI)
+            //     .then(response => response.json())
+            //     .then(json => {
+            //         fetch(giphyAPI + json.word);
+            //     })
+            //     .then(response => response.json())
+            //     .then(json => {
+            //         createImg(json.data[0].images['fixed_height_small'].url)
+            //     })
+            //     .catch(err => console.log(err));
+
+
+
+
+
+
+            //OR -- with chaining
+            // fetch(giphyAPI).then(gotData).catch(gotErr);
+            //yet function chaining incomplete.. because functions assigned below
+            //assigning then function
+            // function gotData(data) {
+                // console.log(data);
+            // }
+            //assigning catch function
+            // function gotErr(err) {
+                // console.log(err);
+            // }
 
             //without function chaining
             // let promise = fetch(giphyAPI); 
@@ -13,21 +50,9 @@
             //catch executes when a promise is rejected
             // promise.catch(gotErr);           
 
-            //OR -- with chaining
-            fetch(giphyAPI).then(gotData).catch(gotErr);
 
 
-            //assigning then function
-            function gotData(data) {
-                console.log(data);
-            }
-            //assigning catch function
-            function gotErr(err) {
-                console.log(err);
-            }
-
-
-            //Example using callbacks
+            //Example using callbacks -- why promises are helpful
             // loadJSON(wordnikAPI, function(data) {
             //     createP(data.word);
             //     loadJSON(giphyAPI + data.word, function(data) {
