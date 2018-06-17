@@ -1,0 +1,18 @@
+<html>
+    <script>
+        let wordnikAPI;
+        let giphyAPI = "http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=LOgOwhtwscVqlPeVRaiUTe0FXnl95rI4&limit=5";
+        //Example using callbacks
+        function setup () {
+            noCanvas();
+            loadJSON(wordnikAPI, function(data) {
+                createP(data.word);
+                loadJSON(giphyAPI + data.word, function(data) {
+                    console.log(data.data[0].images);
+                    createImg(data.data[0].images['fixed_height_small'].url)
+                });
+            });
+        }
+
+    </script>
+</html>
